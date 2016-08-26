@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('css/jquery-1.10.3-ui.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('css/custom.css')}}" />
+{% endblock %}
+{% block body %}
+<div ng-app="app">
+<ng-view></ng-view>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('js/lib/jquery.js') }}"></script>
+<script src="{{ asset('js/lib/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/lib/jquery-1.10.3-ui.min.js') }}"></script>
+<script src="{{ asset('js/lib/angular.min.js') }}"></script>
+<script src="{{ asset('js/lib/angular-route.min.js') }}"></script>
+<script>
+	var siteUrl = "{{ asset('app_dev.php/') }}";
+</script>
+<script src="{{ asset('js/all.js') }}"></script>
+
+{% endblock %}

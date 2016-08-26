@@ -1,0 +1,132 @@
+<div class="container">
+<div class="margin-bottom-10">
+	<div class="background1"><a href="">Bulk Operations</a></div>
+	<div class="form-inline background2">
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="form-group">
+						<label>Select Vehicle:</label> <select class="form-control"
+							ng-model="vm.bulk.category">
+							<option ng-repeat="category in vm.categories" value="{{category.id}}">{{
+								category.name }}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="background1">
+		<div class="row">
+		<div class="col-lg-2">
+			<label>Select Days:</label>
+		</div>
+		<div class="col-lg-3">
+			<div class="row margin-bottom-10">
+				<div class="col-lg-4 cell">From : </div>
+				<div class="col-lg-8"><input type="text" datepicker ng-model="vm.bulk.fromDate" class="form-control  " />  </div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 cell">To : </div>
+				<div class="col-lg-8"><input type="text" datepicker ng-model="vm.bulk.toDate" class="form-control" />  </div>
+			</div>
+		</div>
+		<div class="col-lg-1 padding-0">Refine days:</div>
+		<div class="row col-lg-6 days">
+			<div class="col-lg-3">
+				<div><label><input type="checkbox" ng-model="vm.bulk.allDays" /> All Days</label></div>
+				<div><label><input type="checkbox" ng-model="vm.bulk.weekDays" /> Weekdays</label></div>
+				<div><label><input type="checkbox" ng-model="vm.bulk.weekends" /> Weekends</label></div>
+			</div>
+			<div class="col-lg-3 padding-0">
+				<div><label><input type="checkbox" ng-model="vm.bulk.mondays" /> Mondays</label></div>
+				<div><label><input type="checkbox" ng-model="vm.bulk.tuesdays" /> Tuesdays</label></div>
+				<div><label><input type="checkbox" ng-model="vm.bulk.wednnesdays" /> Wednnesdays</label></div>
+			</div>
+			<div class="col-lg-3">
+				<div><label><input type="checkbox" ng-model="vm.bulk.thursdays" /> Thursdays</label></div>
+				<div><label><input type="checkbox" ng-model="vm.bulk.fridays" /> Fridays</label></div>
+				<div><label><input type="checkbox" ng-model="vm.bulk.saturdays" /> Saturdays</label></div>
+			</div>
+			<div class="col-lg-3">
+				<div><label><input type="checkbox" ng-model="vm.bulk.sundays" /> Sundays</label></div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="background2">
+		<div class="row margin-bottom-10">
+			<div class="col-lg-2">
+				<label>Change Price to:</label>
+			</div>
+			<div class="col-lg-3"><input type="text" ng-model="vm.bulk.price" class="form-control" />  </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2">
+				<label>Change Availibity to:</label>
+			</div>
+			<div class="col-lg-3"><input type="text" ng-model="vm.bulk.availibility" class="form-control" />  </div>
+		</div>
+	</div>
+	<div  class="background1">
+		<div >
+			<input type="button" class="btn btn-default" value="Cancel" />
+			<input type="button" class="btn btn-success" ng-click="vm.bulkOperation()" value="Update" />
+		</div>
+	</div>
+</div>
+
+<div class=" listing-area">
+	<div class=" padding-0">
+		<div class="col-lg-2 padding-0">
+			<div class="available">Avaibility And Price</div>
+			<div ng-repeat="category in vm.categories" class="">
+				<div class="cell category-name">{{ category.name }}</div>
+				<div class="cell">Vehicles available</div>
+				<div class="cell">Price (USD)</div>
+			</div>
+		</div>
+		<div class="col-lg-10 padding-0 main-box">
+		<div  class="title-cell">
+		<i class="glyphicon glyphicon-arrow-left pointer"  ng-click="vm.changeMonth(-1)"></i>
+		<div style="display: inline-block; width: 200px">	{{ vm.monthNames[vm.month] }} {{ vm.year }} </div> 
+		<i class="glyphicon glyphicon-arrow-right pointer" ng-click="vm.changeMonth(1)"></i>
+		</div>
+		<div style="overflow:auto">
+		<div class="tr" style="width: {{ vm.getDataBoxWidth() }}px">
+			<div ng-repeat="dayData in vm.montlyData" class="day-block">
+				<div class="title-cell day-name data-cell {{ dayData.day }}">{{ dayData.day }}</div>
+				<div  class="title-cell data-cell">{{ dayData.dayNumber }}</div>
+				<div ng-repeat="request in dayData.requests">
+					<div class="category-name">&nbsp;</div>
+					<div class="cell data-cell">
+						<div class="popover" style="{{ request.showQtyPopoverStyle }}">
+						<div class="input-group">
+						  <input type="text" class="form-control" ng-model="request.qty" />
+						  <span class="input-group-addon" ng-click="vm.saveRequestQty(request, dayData.dayNumber)">
+						  	<i class="glyphicon glyphicon-ok form-control-feedback"></i>
+						  </span>
+						</div>
+						</div>
+						<span class="data-value" ng-click="vm.showPopover('qty', request);">{{request.qty}}</span>
+					</div>
+					<div class="cell price-cell">
+						<div class="popover" style="{{ request.showPricePopoverStyle }}">
+							<div class="input-group">
+							  <input type="text" class="form-control" ng-model="request.price" />
+							  <span class="input-group-addon" ng-click="vm.saveRequestQty(request, dayData.dayNumber)">
+							  	<i class="glyphicon glyphicon-ok form-control-feedback"></i>
+							  </span>
+							</div>
+							</div>
+						<span class="data-value" ng-click="vm.showPopover('price', request);" >{{request.price}}</span>
+					</div>
+				</div>
+			</div>
+		</div>		
+		</div>
+	</div>
+	
+		<div style="clear:both"></div>
+	</div>
+</div>
+
+</div>
